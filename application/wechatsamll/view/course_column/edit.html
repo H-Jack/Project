@@ -1,0 +1,100 @@
+{extend name='admin@main'}
+
+{block name="content"}
+
+{include file='wechatsamll@course_column/edit_style'}
+
+<form onsubmit="return false;" id="GoodsForm" data-auto="true" method="post" class='layui-form layui-card' autocomplete="off">
+
+    <div class="layui-card-body think-box-shadow padding-left-40">
+
+        <div class="layui-form-item layui-row layui-col-space15">
+
+            <label class="layui-col-xs6 relative">
+                <span class="color-green">课程标题</span>
+                <input name="coursename" required class="layui-input" placeholder="请输入课程标题" value="{$vo.coursename|default=''}">
+            </label>
+
+            <label class="layui-col-xs6 relative">
+                <span class="color-green">价钱</span>
+                <input name="price" required class="layui-input" placeholder="请输入价钱" value="{$vo.price|default='0'}">
+            </label>
+        </div>
+
+        <div class="layui-form-item layui-row layui-col-space15">
+            <label class="layui-col-xs6 relative">
+                <span class="color-green">章节数量</span>
+                <input readonly name="chaptersnumber" required class="layui-input" placeholder="请输入章节数量" value="{$vo.chaptersnumber|default=''}">
+            </label>
+
+            <label class="layui-col-xs6 relative">
+                <span class="color-green">课程类型</span>
+                <input name="coursetype" required class="layui-input" placeholder="请输入课程类型" value="{$vo.coursetype|default=''}">
+            </label>
+        </div>
+
+
+        <div class="layui-form-item layui-row layui-col-space15">
+
+<!--            <label class="layui-col-xs6 relative">-->
+<!--                <span class="color-green">课程有效期</span>-->
+<!--                <input data-date-range name="currtofv_time" value="{$vo.currtofv_time|default=''}" placeholder="请选择课程有效期" class="layui-input">-->
+<!--            </label>-->
+        </div>
+
+        <div class="layui-form-item layui-row layui-col-space15">
+            <label class="layui-col-xs6 relative">
+                <span class="color-green">讲师名字</span>
+                <input readonly name="datail['teachername']" required class="layui-input" placeholder="请输入讲师名字" value="{$vo.teachername|default='0'}">
+            </label>
+        </div>
+
+        {foreach $vo.detaillist as $i=>$v}
+            <div class="layui-form-item layui-row layui-col-space15">
+                <label class="layui-col-xs6 relative">
+                    <span class="color-green">第{$i+1}章节链接</span>
+                    <input name="videolike[{$i}]" required class="layui-input" placeholder="请输入课程链接" value="{$v.like|default=''}">
+                </label>
+
+                <label class="layui-col-xs6 relative">
+                    <span class="color-green">第{$i+1}章节名字</span>
+                    <input name="videoname[{$i}]" required class="layui-input" placeholder="请输入课程名字" value="{$v.name|default=''}">
+                </label>
+            </div>
+        {/foreach}
+
+        <div class="layui-form-item">
+            <span class="color-green label-required-prev">商品LOGO及轮播展示图片</span>
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th class="text-center">老师头像</th>
+                    <th class="text-left">课程展示图片</th>
+                </tr>
+                <tr>
+                    <td width="90px" class="text-center"><input name="datail['teacherimg']" type="hidden" value="{$vo.datail['teacherimg']|default=''}"></td>
+                    <td width="auto" class="text-left"><input name="datail['coursedeta']" type="hidden" value="{$vo.datail['coursedeta']|default=''}"></td>
+                </tr>
+                </thead>
+            </table>
+            <script>$('[name="datail[\'teacherimg\']"]').uploadOneImage(), $('[name="datail[\'coursedeta\']').uploadMultipleImage()</script>
+        </div>
+
+
+        <div class="layui-form-item text-center">
+            {notempty name='vo.id'}<input type="hidden" name="id" value="{$vo.id}">{/notempty}
+            <button class="layui-btn layui-btn-danger" ng-click="hsitoryBack()" type="button">取消编辑</button>
+            <button class="layui-btn" type="submit">保存商品</button>
+        </div>
+
+    </div>
+</form>
+{/block}
+
+{block name='script'}
+<textarea class="layui-hide" id="goods-specs">{$vo.specs|raw|default=''}</textarea>
+<textarea class="layui-hide" id="goods-value">{$defaultValues|raw|default=''}</textarea>
+<script>
+
+</script>
+{/block}

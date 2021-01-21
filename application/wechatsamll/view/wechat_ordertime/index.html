@@ -1,0 +1,69 @@
+{extend name='main'}
+
+{block name="button"}
+{if auth("wechatsamll/wechat_ordertime/add")}
+<button data-modal='{:url("add")}' data-title="添加预约" class='layui-btn layui-btn-sm layui-btn-primary'>添加预约</button>
+{/if}
+{/block}
+
+{block name="content"}
+    <div class="think-box-shadow">
+        {include file='wechat_ordertime/index_search'}
+        <table class="layui-table margin-top-10" lay-skin="line">
+            {notempty name="list"}
+            <thead>
+            <tr>
+                <th class='list-table-check-td think-checkbox'>
+                    <input data-auto-none data-check-target='.list-check-box' type='checkbox'>
+                </th>
+                <th class='text-left nowrap' id="hjhx">心理讲师</th>
+                <th class='text-left nowrap'>预约年月日</th>
+                <th class='text-left nowrap'>预约时间段</th>
+                <th class='text-left nowrap'>价格</th>
+                <th class='text-left nowrap'>状态</th>
+                <th></th>
+            </tr>
+            </thead>
+                {foreach $list as $key=>$vo}
+                    <tr data-dbclick>
+                        <td class='list-table-check-td think-checkbox'>
+                            <input class="list-check-box" value='{$vo.id}' type='checkbox'>
+                        </td>
+                        <td class="text-left nowrap">
+                            <span class="font-w7">{$vo.username|default='-'}</span><br>
+                        </td>
+                        <td class='text-left nowrap'>
+                            日期：<span class="font-w7">{$vo.date|default='-'} （{$vo.week}）</span><br>
+                        </td>
+                        <td class="text-left nowrap">
+                            <span class="font-w7">{$vo.time|default='-'}</span><br>
+                        </td>
+                        <td class="text-left nowrap">
+                            <span class="font-w7">{$vo.money|default='-'}</span><br>
+                        </td>
+                        <td class='text-left nowrap'>
+                            {if $vo.status eq 1}
+                            <div class="layui-btn layui-btn-normal layui-btn-sm">预约</div>
+                            {else /}
+                            <div data-dbclick class="layui-btn layui-btn-sm layui-btn-danger">约满</div>
+                            {/if}
+                        </td>
+                        <td class='text-left nowrap'>
+                            {if auth("remove")}
+                            <a data-dbclick class="layui-btn layui-btn-sm" data-title="编辑用户" data-modal='{:url("edit")}?id={$vo.id}'>预约详细</a>
+                            {/if}
+                            {if auth("remove")}
+                            <a data-dbclick class="layui-btn layui-btn-sm layui-btn-danger" data-confirm="确定要删除该课程吗？" data-action="{:url('remove')}" data-value="id#{$vo.id}" data-csrf="{:systoken('remove')}">删 除</a>
+                            {/if}
+                        </td>
+                    </tr>
+                {/foreach}
+
+            {/notempty}
+        </table>
+        {empty name='list'}<span class="notdata">没有记录哦</span>{else}{$pagehtml|raw|default=''}{/empty}
+    </div>
+{/block}
+
+</body>
+</html>

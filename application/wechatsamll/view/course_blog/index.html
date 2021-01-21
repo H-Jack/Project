@@ -1,0 +1,57 @@
+{extend name='main'}
+
+{block name="button"}
+{/block}
+
+{block name="content"}
+    <div class="think-box-shadow">
+        <table class="layui-table margin-top-10" lay-skin="line">
+            {notempty name="list"}
+            <thead>
+            <tr>
+                <th class='list-table-check-td think-checkbox'>
+                    <input data-auto-none data-check-target='.list-check-box' type='checkbox'>
+                </th>
+                <th class='text-left nowrap'>用户名</th>
+                <th class='text-left nowrap'>评论内容</th>
+                <th class='text-left nowrap'>评论时间</th>
+                <th class='text-left nowrap'>更新时间</th>
+                <th></th>
+            </tr>
+            </thead>
+                {foreach $list as $key=>$vo}
+                    <tr data-dbclick>
+                        <td class='list-table-check-td think-checkbox'>
+                            <input class="list-check-box" value='{$vo.id}' type='checkbox'>
+                        </td>
+                        <td class="text-left nowrap">
+                            <span class="font-w7">{$vo.username|default='-'}</span><br>
+<!--                            <span class="color-desc">{$vo.node|default='-'}</span>-->
+                        </td>
+                        <td class='text-left nowrap'>
+                            <p style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;max-width: 629px;" class="color-text">{$vo.content|default='-'}</p>
+                        </td>
+                        <td class='text-left nowrap'>
+                            日期：{$vo.create_time|format_datetime|str_replace=' ','<br><span class="color-desc">时间：',###|raw}</span>
+                        </td>
+                        <td class='text-left nowrap'>
+                            日期：{$vo.update_time|format_datetime|str_replace=' ','<br><span class="color-desc">时间：',###|raw}</span>
+                        </td>
+                        <td class='text-left nowrap'>
+                            {if auth("remove")}
+                            <a data-dbclick class="layui-btn layui-btn-sm" data-title="编辑用户" data-modal='{:url("edit")}?id={$vo.id}'>评论详细</a>
+                            {/if}
+                            {if auth("remove")}
+                            <a data-dbclick class="layui-btn layui-btn-sm layui-btn-danger" data-confirm="确定要删除该课程吗？" data-action="{:url('remove')}" data-value="id#{$vo.id}" data-csrf="{:systoken('remove')}">删 除</a>
+                            {/if}
+                        </td>
+                    </tr>
+                {/foreach}
+
+            {/notempty}
+        </table>
+        {empty name='list'}<span class="notdata">没有记录哦</span>{else}{$pagehtml|raw|default=''}{/empty}
+    </div>
+{/block}
+</body>
+</html>

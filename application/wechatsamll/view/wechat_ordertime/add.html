@@ -1,0 +1,67 @@
+<form onsubmit="return false;" action="{:url('save')}" data-auto="true" method="post" class='layui-form layui-card' autocomplete="off">
+
+    <div class="layui-card-body">
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">预约日期</label>
+            <label class="layui-col-xs10">
+                <select class="layui-select" value="{$vo.date|default=''}" name="date" lay-search style="display: block" id="date">
+                    <option>-- 选择日期 --</option>
+                        {volist name="date" id="vo" key="k" }
+                            <option>{$vo} </option>
+                        {/volist}
+                </select>
+            </label>
+        </div>
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label" id="hjhs">预约时间段</label>
+            <label class="layui-col-xs10">
+                <select class="layui-select refreshChoice" value="{$vo.time|default=''}" name="time" lay-search style="display: block">
+                    <option>-- 选择时间段 --</option>
+                    <option id="1" value="08:00-09:00">08:00-09:00</option>
+                    <option id="2" value="09:00-10:00">09:00-10:00</option>
+                    <option id="3" value="10:00-11:00">10:00-11:00</option>
+                    <option id="4" value="14:00-15:00">14:00-15:00</option>
+                    <option id="5" value="15:00-16:00">15:00-16:00</option>
+                    <option id="6" value="16:00-17:00">16:00-17:00</option>
+                    <option id="7" value="17:00-18:00">17:00-18:00</option>
+                    <option id="8" value="18:00-19:00">18:00-19:00</option>
+                    <option id="9" value="19:00-20:00">19:00-20:00</option>
+                    <option id="10" value="20:00-21:00">20:00-21:00</option>
+                    <option id="11" value="21:00-22:00">21:00-22:00</option>
+                    <option id="12" value="22:00-23:00">22:00-23:00</option>
+                    <option id="13" value="23:00-00:00">23:00-00:00</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">价格</label>
+            <label class="layui-col-xs10">
+                <input name="money" required value='{$vo.money|default=""}' placeholder="预约价格价格" class="layui-input">
+            </label>
+        </div>
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">预约状态</label>
+            <label class="layui-col-xs10">
+                <select class="layui-select" value="{$vo.time|default=''}" name="status" lay-search style="display: block">
+                    <option value="">-- 选择预约状态 --</option>
+                    <option selected>1</option>
+                    <option>0</option>
+                </select>(0：预约满   1：可预约)
+            </label>
+        </div>
+
+    </div>
+
+    <div class="hr-line-dashed"></div>
+    <div class="layui-form-item text-center">
+        {notempty name='vo.id'}<input type='hidden' value='{$vo.id}' name='id'>{/notempty}
+        <button class="layui-btn" type='submit'>保存数据</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？" data-close>取消编辑</button>
+    </div>
+</form>
+
+

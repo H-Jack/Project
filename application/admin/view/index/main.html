@@ -1,0 +1,81 @@
+{extend name='main'}
+
+{block name='content'}
+
+<style>
+
+    .store-total-container {
+        font-size: 14px;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+    .store-total-container .store-total-icon {
+        top: 45%;
+        right: 8%;
+        font-size: 65px;
+        position: absolute;
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .store-total-container .store-total-item {
+        color: #fff;
+        line-height: 4em;
+        padding: 15px 25px;
+        position: relative;
+    }
+
+    .store-total-container .store-total-item > div:nth-child(2) {
+        font-size: 46px;
+        line-height: 46px;
+    }
+
+</style>
+
+<div class="layui-row layui-col-space15">
+    <div class="layui-col-md12">
+        <div class="think-box-shadow">
+            <table class="layui-table" lay-skin="line" lay-even>
+                <caption class="text-left margin-bottom-15 font-s14">系统信息</caption>
+                <colgroup>
+                    <col width="30%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <td>当前程序版本</td>
+                    <td>{:sysconf('app_version')}</td>
+                </tr>
+                <tr>
+                    <td>运行PHP版本</td>
+                    <td>{$Think.PHP_VERSION}</td>
+                </tr>
+                <tr>
+                    <td>ThinkPHP版本</td>
+                    <td>{$think_ver}</td>
+                </tr>
+                <tr>
+                    <td>MySQL数据库版本</td>
+                    <td>{$mysql_ver}</td>
+                </tr>
+                <tr>
+                    <td>服务器操作系统</td>
+                    <td>{:php_uname('s')}</td>
+                </tr>
+                <tr>
+                    <td>WEB运行环境</td>
+                    <td>{:php_sapi_name()}</td>
+                </tr>
+                <tr>
+                    <td>上传大小限制</td>
+                    <td>{:ini_get('upload_max_filesize')}</td>
+                </tr>
+                <tr>
+                    <td>POST大小限制</td>
+                    <td>{:ini_get('post_max_size')}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{/block}

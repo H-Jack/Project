@@ -1,0 +1,11 @@
+/.git
+/.svn
+/.idea
+/runtime
+/safefile
+/nbproject
+/config/cert
+/composer.lock
+/public/upload
+public/static/theme/css/console.*.css
+public/static/theme/css/console.*.css.map

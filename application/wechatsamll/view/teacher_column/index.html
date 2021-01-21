@@ -1,0 +1,77 @@
+{extend name='main'}
+
+{block name="button"}
+{if auth("wechatsamll/course_column/add")}
+<button data-modal='{:url("add")}' data-title="添加教师" class='layui-btn layui-btn-sm layui-btn-primary'>添加教师</button>
+{/if}
+{/block}
+
+{block name="content"}
+    <div class="think-box-shadow">
+        <table class="layui-table margin-top-10" lay-skin="line">
+            {notempty name="list"}
+            <thead>
+            <tr>
+                <th class='list-table-check-td think-checkbox'>
+                    <input data-auto-none data-check-target='.list-check-box' type='checkbox'>
+                </th>
+                <th class='text-left nowrap'>教师名字</th>
+                <th class='text-left nowrap'>教师手机号</th>
+                <th class='text-left nowrap'>openid</th>
+                <th class='text-left nowrap'>教师简介</th>
+                <th class='text-left nowrap'>预约价钱</th>
+                <th class='text-left nowrap'>头像</th>
+                <th class='text-left nowrap'>老师id</th>
+                <th class='text-left nowrap'>操作时间</th>
+                <th></th>
+            </tr>
+            </thead>
+                {foreach $list as $key=>$vo}
+                    <tr data-dbclick>
+                        <td class='list-table-check-td think-checkbox'>
+                            <input class="list-check-box" value='{$vo.id}' type='checkbox'>
+                        </td>
+
+                        <td class="text-left nowrap">
+                            <span class="font-w7">{$vo.teachername|default='-'}</span><br>
+<!--                            <span class="color-desc">{$vo.node|default='-'}</span>-->
+                        </td>
+                        <td class="text-left nowrap">
+                            <span class="font-w7">{$vo.phone|default='-'}</span><br>
+                        </td>
+                        <td class="text-left nowrap">
+                            <span class="font-w7">{$vo.openid|default='-'}</span><br>
+                        </td>
+                        <td class='text-left nowrap'>
+                            <p class="color-text">{$vo.teachersyno|default='-'}</p>
+                        </td>
+                        <td class='text-left nowrap'>
+                            <p class="color-text">{$vo.subsprice|default='0'}</p>
+                        </td>
+                        <td class='text-left nowrap'>
+                            <p class="color-text">{$vo.teacherimg|default='0'}</p>
+                        </td>
+                        <td class='text-left nowrap'>
+                            <p class="color-text">{$vo.id|default='-'}</p>
+                        </td>
+                        <td class='text-left nowrap'>
+                            日期：{$vo.create_time|format_datetime|str_replace=' ','<br><span class="color-desc">时间：',###|raw}</span>
+                        </td>
+                        <td class='text-left nowrap'>
+                            {if auth("edit")}
+                            <a data-dbclick class="layui-btn layui-btn-sm" data-title="编辑教师" data-modal='{:url("edit")}?id={$vo.id}'>编 辑</a>
+                            {/if}
+                            {if auth("remove")}
+                            <a data-dbclick class="layui-btn layui-btn-sm layui-btn-danger" data-confirm="确定要删除该课程吗？" data-action="{:url('remove')}" data-value="id#{$vo.id}" data-csrf="{:systoken('remove')}">删 除</a>
+                            {/if}
+                        </td>
+                    </tr>
+                {/foreach}
+
+            {/notempty}
+        </table>
+        {empty name='list'}<span class="notdata">没有记录哦</span>{else}{$pagehtml|raw|default=''}{/empty}
+    </div>
+{/block}
+</body>
+</html>

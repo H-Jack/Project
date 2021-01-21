@@ -1,0 +1,49 @@
+<form onsubmit="return false;" action="{:url('save')}" data-auto="true" method="post" class='layui-form layui-card' autocomplete="off">
+
+    <div class="layui-card-body">
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">预约日期</label>
+            <label class="layui-col-xs10">
+                <input name="date" required readonly="readonly" value='{$vo.date|default=""}' placeholder="预约日期" class="layui-input">
+            </label>
+        </div>
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">预约时间段</label>
+            <label class="layui-col-xs10">
+                <input name="time" required readonly="readonly" value='{$vo.time|default=""}' placeholder="预约时间段" class="layui-input">
+            </label>
+        </div>
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">价格</label>
+            <label class="layui-col-xs10">
+                <input name="money" required value='{$vo.money|default=""}' placeholder="价格" class="layui-input">
+            </label>
+        </div>
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">预约状态</label>
+            <label class="layui-col-xs10">
+                <select class="layui-select" value="$vo.status" name="status" lay-search style="display: block">
+                    <option>{$vo.status}</option>
+                    {if ($vo.status===1) eq 0}
+                    <option>1</option>
+                    {else /}
+                    <option>0</option>
+                    {/if}
+                    {/foreach}
+                </select>(0：预约满   1：可预约)
+            </label>
+        </div>
+
+    </div>
+
+    <div class="hr-line-dashed"></div>
+    <div class="layui-form-item text-center">
+        {notempty name='vo.id'}<input type='hidden' value='{$vo.id}' name='id'>{/notempty}
+        <button class="layui-btn" type='submit'>保存数据</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？" data-close>取消编辑</button>
+    </div>
+</form>

@@ -1,0 +1,37 @@
+<fieldset class="margin-bottom-20 relative" data-max-index="{$index}">
+
+    <legend class="color-green font-s14">
+        {$group_title|default='课程章节'} <span class="color-desc font-s12"> RuleGroup</span>
+    </legend>
+
+    {empty name='is_default'}
+    <a onclick="delRuleItem(this)" class="layui-btn layui-btn-xs layui-btn-danger text-center layui-icon layui-icon-close" data-tips-text="移除规则" style="position:absolute;top:15px;right:5px;padding:0 5px"></a>
+    {/empty}
+
+    <div class="layui-form-item">
+
+        <table class="layui-table" lay-skin="line">
+            <tr class="layui-bg-gray">
+                <th class="text-center" width="80px">首件（个）</th>
+                <th class="text-center" width="80px">运费（元）</th>
+                <th class="text-center" width="80px">续件（个）</th>
+                <th class="text-center" width="80px">续费（元）</th>
+            </tr>
+            <tr>
+                <td class="text-center">
+                    <label><input name="first_number_{$index}" value="{$item.first_number|default='1'}" data-blur-number="0" class="layui-input text-center padding-left-0"></label>
+                </td>
+                <td class="text-center">
+                    <label><input name="first_price_{$index}" value="{$item.first_price|default='0.00'}" data-blur-number="2" class="layui-input text-center padding-left-0"></label>
+                </td>
+                <td class="text-center">
+                    <label><input name="next_number_{$index}" value="{$item.next_number|default='1'}" data-blur-number="0" class="layui-input text-center padding-left-0"></label>
+                </td>
+                <td class="text-center">
+                    <label><input name="next_price_{$index}" value="{$item.next_price|default='0.00'}" data-blur-number="2" class="layui-input text-center padding-left-0"></label>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</fieldset>

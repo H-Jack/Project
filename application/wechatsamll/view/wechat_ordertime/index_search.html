@@ -1,0 +1,35 @@
+<fieldset>
+
+    <legend>条件搜索</legend>
+
+    <form class="layui-form layui-form-pane form-search" action="{:request()->url()}" onsubmit="return false" method="get" autocomplete="off">
+
+        <div class="layui-form-item layui-inline">
+            <label class="layui-form-label">心理讲师</label>
+            <div class="layui-input-inline">
+                <input name="username" value="{$vo.username|default=''}" placeholder="请输入心理讲师名" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-inline">
+            <label class="layui-form-label">预约日期</label>
+            <div class="layui-input-inline">
+                <input name="date" value="{$vo.username|default=''}" placeholder="请输入预约日期" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-inline">
+            <label class="layui-form-label">时间段</label>
+            <div class="layui-input-inline">
+                <input name="time" value="{$vo.username|default=''}" placeholder="请输入预约时间段" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-inline">
+            <button class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe615;</i> 搜 索</button>
+        </div>
+    </form>
+
+</fieldset>
+
+<script>form.render()</script>

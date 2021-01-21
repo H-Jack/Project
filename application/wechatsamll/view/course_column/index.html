@@ -1,0 +1,79 @@
+{extend name='main'}
+
+{block name="button"}
+{if auth("wechatsamll/course_column/add")}
+<button data-modal='{:url("add")}' data-title="添加课程" class='layui-btn layui-btn-sm layui-btn-primary'>添加课程</button>
+{/if}
+{/block}
+
+{block name="content"}
+    <div class="think-box-shadow">
+        <table class="layui-table margin-top-10" lay-skin="line">
+            {notempty name="list"}
+            <thead>
+            <tr>
+                <th class='list-table-check-td think-checkbox'>
+                    <input data-auto-none data-check-target='.list-check-box' type='checkbox'>
+                </th>
+                <th class='text-left nowrap'>课程名称</th>
+                <th class='text-left nowrap'>课程类型</th>
+                <th class='text-left nowrap'>课程章节</th>
+                <th class='text-left nowrap'>学习人数</th>
+                <th class='text-left nowrap'>价格</th>
+                <th class='text-left nowrap'>积分可兑换课程</th>
+                <th class='text-left nowrap'>兑换积分额度</th>
+                <th class='text-left nowrap'>操作时间</th>
+                <th></th>
+            </tr>
+            </thead>
+                {foreach $list as $key=>$vo}
+                    <tr data-dbclick>
+                        <td class='list-table-check-td think-checkbox'>
+                            <input class="list-check-box" value='{$vo.id}' type='checkbox'>
+                        </td>
+                        <td class="text-left nowrap">
+                            <span class="font-w7">{$vo.coursename|default='-'}</span><br>
+<!--                            <span class="color-desc">{$vo.node|default='-'}</span>-->
+                        </td>
+                        <td class='text-left nowrap'>
+                            <p class="color-text">{$vo.coursetype|default='-'}</p>
+                        </td>
+                        <td class='text-left nowrap'>
+                            <p class="color-text">{$vo.chaptersnumber|default='0'}</p>
+                        </td>
+                        <td class='text-left nowrap'>
+                            <p class="color-text">{$vo.studentsnumber|default='0'}</p>
+                        </td>
+                        <td class='text-left nowrap'>
+                            <p class="color-text">{$vo.price|default='-'}</p>
+                        </td>
+                        <td class='text-left nowrap'>
+                            {if $vo.exchangepoints == 1}
+                                <p class="color-text">可以兑换</p>
+                            {else /}<p class="color-text">不可以兑换</p>
+                            {/if}
+                        </td>
+                        <td class='text-left nowrap'>
+                            <p class="color-text">{$vo.coursepoints|default='-'} 积分</p>
+                        </td>
+                        <td class='text-left nowrap'>
+                            日期：{$vo.create_time|format_datetime|str_replace=' ','<br><span class="color-desc">时间：',###|raw}</span>
+                        </td>
+                        <td class='text-left nowrap'>
+                            {if auth("edit")}
+                            <a data-dbclick class="layui-btn layui-btn-sm" data-open='{:url("edit")}?id={$vo.id}'>编 辑</a>
+                            {/if}
+                            {if auth("remove")}
+                            <a data-dbclick class="layui-btn layui-btn-sm layui-btn-danger" data-confirm="确定要删除该课程吗？" data-action="{:url('remove')}" data-value="id#{$vo.id}" data-csrf="{:systoken('remove')}">删 除</a>
+                            {/if}
+                        </td>
+                    </tr>
+                {/foreach}
+
+            {/notempty}
+        </table>
+        {empty name='list'}<span class="notdata">没有记录哦</span>{else}{$pagehtml|raw|default=''}{/empty}
+    </div>
+{/block}
+</body>
+</html>

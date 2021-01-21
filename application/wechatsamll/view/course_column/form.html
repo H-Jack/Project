@@ -1,0 +1,88 @@
+<form onsubmit="return false;" action="{:request()->url()}" data-auto="true" method="post" class='layui-form layui-card' autocomplete="off">
+
+    <div class="layui-card-body">
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">课程图片</label>
+            <label class="layui-col-xs8 think-form-group-left">
+                <input name="logo" required value='{$vo.imgs|default=""}' placeholder="请上传课程封面" class="layui-input">
+            </label>
+            <a class="layui-col-xs2 layui-btn think-form-group-right" data-file="btn" data-field="logo" data-type="png,jpg,gif">
+                <i class="layui-icon layui-icon-upload"></i> 上传图片
+            </a>
+        </div>
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">课程名称</label>
+            <label class="layui-col-xs10">
+                <input name="coursename" required value='{$vo.coursename|default=""}' placeholder="课程名称" class="layui-input">
+            </label>
+        </div>
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">课程章节数量</label>
+            <label class="layui-col-xs10">
+                <input name="chaptersnumber" required value='{$vo.chaptersnumber|default=""}' placeholder="课程数量" class="layui-input">
+            </label>
+        </div>
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">课程类型</label>
+            <label class="layui-col-xs10">
+                <input name="coursetype" required value='{$vo.coursetype|default=""}' placeholder="课程类型" class="layui-input">
+            </label>
+        </div>
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">课程价钱</label>
+            <label class="layui-col-xs10">
+                <input name="price" required value='{$vo.price|default=""}' placeholder="课程价钱(RMB)" class="layui-input">
+            </label>
+        </div>
+
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">全部老师</label>
+            <label class="layui-col-xs10">
+                <select class="layui-select" name="teatherid" lay-search style="display: block">
+                    <option value="">-- 选择老师 --</option>
+                    {foreach $vo.teacherlist as $v}
+                    <!--{eq name='Think.get.cate_id' value='$v.id.""'}-->
+                    <option selected value="{$v.id}">{$v.teachername}</option>
+                    <!--{else}-->
+                    <option value="{$v.id}">{$v.teachername}</option>
+                    <!--{/eq}-->
+                    {/foreach}
+                </select>
+            </label>
+        </div>
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">积分可兑换课程</label>
+            <label class="layui-col-xs10">
+                <select class="layui-select" value="{$vo.exchangepoints|default=''}" name="exchangepoints" lay-search style="display: block">
+                    <option value="">-- 选择是否可兑换 --</option>
+                    <option selected>0</option>
+                    <option>1</option>
+                </select>(0：不可以兑换   1：可以兑换)
+            </label>
+        </div>
+
+        <div class="layui-row margin-bottom-15">
+            <label class="layui-col-xs2 think-form-label">兑换积分额度</label>
+            <label class="layui-col-xs10">
+                <input name="coursepoints" required value='0' placeholder="兑换积分额度" class="layui-input">
+            </label>
+        </div>
+
+
+
+    </div>
+
+    <div class="hr-line-dashed"></div>
+    <div class="layui-form-item text-center">
+        {notempty name='vo.id'}<input type='hidden' value='{$vo.id}' name='id'>{/notempty}
+        <button class="layui-btn" type='submit'>保存数据</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？" data-close>取消编辑</button>
+    </div>
+</form>
