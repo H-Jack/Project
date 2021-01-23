@@ -68,6 +68,7 @@ class WechatOrder extends Base
     public static function returnallorders()
     {
         $list = self::field('out_trade_no,total_price,snap_name,status,update_time,subscribe_num,course_num,id')
+            ->where('status','1')
             ->select();
         return $list;
     }

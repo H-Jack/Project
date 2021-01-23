@@ -46,4 +46,11 @@ class My extends Base
         $userinfo = WechatUser::get($id); //查询该用户个人信息
         return ['qdstatus'=>$qdstatus,'userinfo'=>$userinfo];
     }
+
+    //返回小程序首页预览视频链接、公司简介链接
+    public function SamllProgramIndex()
+    {
+        $data = \Db::table('wechatsmall_programindex')->select();
+        return ['data'=>$data];
+    }
 }

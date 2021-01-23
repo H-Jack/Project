@@ -64,4 +64,14 @@ class WechatUserall extends Controller
         }
         return $list;
     }
+
+    /**
+     * @auth true
+     * 删除留言
+     */
+    public function remove()
+    {
+        $this->applyCsrfToken();
+        $this->_delete($this->table);
+    }
 }

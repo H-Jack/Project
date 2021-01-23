@@ -52,10 +52,14 @@ class PublicRequestfunction extends Base
         //返回总量
         $userabj = new myindex;
         $userinfo = $userabj->index();
+
+        //返回小程序首页预览视频链接、公司简介链接
+        $SamllProgramIndexabj = new myindex;
+        $SamllProgramIndex = $userabj->SamllProgramIndex();
         //返回可积分兑换课程
         $integralcourse = \app\api\model\CourseColumn::integralcourselist();
 
-        $list = ['userinfo' => $userinfo, 'courses' => $courseslist, 'teachers' => $teachers, 'count' => ['courses' => count($courses), 'teachers' => count($teachers)], 'integralcourse' => $integralcourse];
+        $list = ['userinfo' => $userinfo, 'courses' => $courseslist, 'teachers' => $teachers, 'count' => ['courses' => count($courses), 'teachers' => count($teachers)], 'integralcourse' => $integralcourse, 'SamllProgramIndex'=> $SamllProgramIndex];
         return $list;
     }
 

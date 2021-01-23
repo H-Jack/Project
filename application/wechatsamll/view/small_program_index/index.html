@@ -1,0 +1,45 @@
+{extend name='main'}
+
+{block name="button"}
+{/block}
+
+{block name="content"}
+    <div class="think-box-shadow">
+        <table class="layui-table margin-top-10" lay-skin="line">
+            {notempty name="list"}
+            <thead>
+            <tr>
+                <th class='list-table-check-td think-checkbox'>
+                    <input data-auto-none data-check-target='.list-check-box' type='checkbox'>
+                </th>
+                <th class='text-left nowrap'>公司简介链接</th>
+                <th class='text-left nowrap'>首页视频链接</th>
+                <th></th>
+            </tr>
+            </thead>
+                {foreach $list as $key=>$vo}
+                    <tr data-dbclick>
+                        <td class='list-table-check-td think-checkbox'>
+                            <input class="list-check-box" value='{$vo.id}' type='checkbox'>
+                        </td>
+                        <td class="text-left nowrap">
+                            <span class="font-w7">{$vo.CompanyLink|default='-'}</span><br>
+                        </td>
+                        <td class='text-left nowrap'>
+                            <p style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;max-width: 629px;" class="color-text">{$vo.VideoLink|default='-'}</p>
+                        </td>
+                        <td class='text-left nowrap'>
+                            {if auth("remove")}
+                            <a data-dbclick class="layui-btn layui-btn-sm" data-title="编辑用户" data-modal='{:url("edit")}?id={$vo.id}'>编辑</a>
+                            {/if}
+                        </td>
+                    </tr>
+                {/foreach}
+
+            {/notempty}
+        </table>
+        {empty name='list'}<span class="notdata">没有记录哦</span>{else}{$pagehtml|raw|default=''}{/empty}
+    </div>
+{/block}
+</body>
+</html>
